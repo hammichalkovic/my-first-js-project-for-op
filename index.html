@@ -6,29 +6,185 @@
     <title>My First JS Project for OP</title>
 </head>
 <body>
+    <h1>Paper, Rock, Scissors</h1>
+        <div class="game">
+            <div class="player">
+                <h2>Player:</h2>
+                <div class="playerScore">
+                    <h2 class="playerScore"></h2>
+                </div>
+            </div>
+            <div class="computer">
+                <h2>Computer:</h2>
+                <div class="computerScore">
+                    <h2 class="computerScore"></h2>
+                </div>
+            </div>    
+        </div>
+        <button class="play" onclick="game()">PLAY</button>
+        <button class="refresh" onclick="refresh()">REFRESH</button>
+
+    <style>
+        body,
+        button {
+            text-transform: capitalize;
+            font-size: 50px;
+        }
+
+        button {
+            
+            width: 300px;
+            height: 100px;
+            margin: 50px 0 0 370px;
+        }
+
+        .play {
+            background-color: red;
+        }
+
+        .refresh {
+            background-color: aqua;
+        }
+
+        .play:active {
+            background-color: aqua;
+        }
+
+        .refresh:active {
+            background-color: red;
+        }
+
+        .game {
+            display: flex;
+        }
+
+        .computer,
+        .player {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 500px;
+            height: 200px;
+            border: 2px solid red;
+        }
+
+        div.computerScore,
+        div.playerScore {
+            width: 100px;
+            height: 100px;
+            border: 2px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .computer {
+            margin-left: 30px;
+        }
+
+    </style>
+
     <script>
+        let a = '',
+            b = '',
+            playerScore = 0,
+            computerScore = 0;
+        // playRound();
         
+
         function getComputerChoice() {
-            let paper = 'Paper!', rock = 'Rock!', scissors = "Scissors!";
+
             let number = Math.random() * 100;
             let result = Math.round(number);
 
             if (result % 2 == 0) {
 
-                return paper;
-
+                b = 1;
+                // paper
             } else if (result % 3 == 0) {
 
-                return rock;
-
+                b = 2;
+                // rock
             } else {
                 
-                return scissors;
-
+                b = 3;
+                // scissors
             }
 
+        } 
+
+        function displayScores() {
+             document.getElementsByClassName('playerScore')[0].innerHTML = playerScore;
+             document.getElementsByClassName('computerScore')[0].innerHTML = computerScore;
+            
         }
 
+        function playRound() {
+            displayScores();
+            getComputerChoice();
+            a = prompt('Let\'s play Paper, Rock, Scissors! Enter what you choose!');
+            a = a.toLowerCase();
+            
+            if (b == 1 && a == 'paper') {
+                alert('Nobody win. Paper doesn\'t beat paper.');
+                playerScore += 0; 
+            } else if (b == 2 && a == 'paper') {
+                alert('You win! Paper wraps rock.');
+                ++playerScore;
+            } else if (b == 3 && a == 'paper') {
+                alert('You lose! Scissors cut paper!');
+                ++computerScore;
+            } else if (b == 1 && a == 'rock') {
+                alert('You lose! Paper wraps rock.');
+                ++computerScore;
+            } else if (b == 2 && a == 'rock') {
+                alert('Nobody win. Rock doesn\'t beat rock.');
+                playerScore += 0;
+            } else if (b == 3 && a == 'rock') {
+                alert('You win! Rock beats scissors.'); 
+                ++playerScore;
+            }  else if (b == 1 && a == 'scissors') {
+                alert('You win! Scissors cut paper.');
+                ++playerScore;
+            } else if (b == 2 && a == 'scissors') {
+                alert('You lose! Rock beats scissors.');
+                ++computerScore;
+            } else if (b == 3 && a == 'scissors') {
+                alert('Nobody win. Scissors don\'t beat scissors.')
+                playerScore += 0;
+            } else {
+                alert('You\'ve made a mistake. Write your word once again correctly.');
+            }
+        }
+
+        function game() {
+            playRound();
+            displayScores();
+            playRound();
+            displayScores();
+            playRound();
+            displayScores();
+            playRound();
+            displayScores();
+            playRound();
+            displayScores();
+
+            if (playerScore > computerScore) {
+                alert('You win the game!');
+            } else if (playerScore < computerScore) {
+                alert('Computer win the game!');
+            } else if (playerScore == computerScore) {
+                alert('Nobody win the game!');
+            }
+
+            return displayScores();
+        }
+
+        function refresh() {
+            playerScore = '';
+            computerScore = '';
+            displayScores();
+        }
 
     </script>
 </body>
