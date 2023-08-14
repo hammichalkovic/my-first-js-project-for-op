@@ -7,6 +7,9 @@
 </head>
 <body>
     <h1>Paper, Rock, Scissors</h1>
+        <div class="round">
+            Rounds Played:<div class="roundnumber"></div>
+        </div>
         <div class="game">
             <div class="player">
                 <h2>Player:</h2>
@@ -28,7 +31,6 @@
                 <button class="scissors">scissors</button>
             </div>
             <div class="buttons">
-                <button class="play" onclick="game()">PLAY</button>
                 <button class="refresh" onclick="refresh()">REFRESH</button>
             </div>
         </div>
@@ -37,11 +39,15 @@
 
         body {
             text-transform: capitalize;
-            font-size: 45px;
+            font-size: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         h1 {
-            margin-left: 110px;
+            text-align: center;
+            font-size: 60px;
         }
 
         button {
@@ -51,9 +57,19 @@
             font-size: 30px;
         }
 
+        .round {
+            text-transform: uppercase;
+            margin: -15px 0 30px 0;
+            display: flex;
+        }
+
+        .roundnumber {
+            padding-left: 10px;
+        }
+
         .allbuttons {
             width: 1035px;
-            border: 1px dotted salmon;
+            /* border: 1px dotted salmon; */
             margin-top: 30px;
             height: 170px;
             display: flex;
@@ -62,28 +78,22 @@
             justify-content: space-between;
         }
 
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-            border: 1px solid black;
-            height: 70px;
-            width: 420px;
-        }
-
-        .play {
-            background-color: red;
-        }
 
         .refresh {
             background-color: aqua;
-        }
-
-        .play:active {
-            background-color: aqua;
+            width: 400px;
+            height: 100px;
+            margin-top: 30px;
         }
 
         .refresh:active {
             background-color: red;
+            cursor: pointer;
+        }
+
+        .refresh:hover,
+        .play:hover {
+            cursor: pointer;
         }
 
         .game {
@@ -93,22 +103,25 @@
 
         .computer,
         .player {
+
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 500px;
-            height: 150px;
+            width: 300px;
+            height: 100px;
             border: 2px solid red;
+            margin-top: 30px;
         }
 
         div.computerScore,
         div.playerScore {
-            width: 100px;
-            height: 100px;
+            width: 50px;
+            height: 50px;
             border: 2px solid black;
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-left: 10px;
         }
 
         .computer {
@@ -117,7 +130,7 @@
 
         .select {
             width: 1034px;
-            border: 1px solid red;
+            /* border: 1px solid red; */
             height: 70px;
             display: flex;
             justify-content: space-evenly;
@@ -126,9 +139,9 @@
         .paper,
         .rock,
         .scissors {
-            border: 1px solid transparent;
+            border: 3px solid grey;
             height: 70px;
-            width: 200px;
+            width: 220px;
             background: linear-gradient(to bottom, hsl(56, 71%, 49%), hsl(175, 95%, 50%), hsl(347, 71%, 49%));
             color: white;
             display: flex;
@@ -141,6 +154,19 @@
             -webkit-text-stroke-color: black;
         }
 
+        .paper:hover,
+        .rock:hover,
+        .scissors:hover {
+            cursor: pointer;
+            border: 7px solid greenyellow;
+        }
+
+        .paper:active,
+        .rock:active,
+        .scissors:active {
+            border: 7px solid rgb(248, 51, 2);
+        }
+
 
     </style>
 
@@ -148,8 +174,14 @@
         let a = '',
             b = '',
             playerScore = 0,
-            computerScore = 0;
+            computerScore = 0,
+            roundNumber = 0;
         // playRound();
+
+        let paper = document.querySelector('.paper'),
+            rock = document.querySelector('.rock'),
+            scissors = document.querySelector('.scissors'),
+            round = document.querySelector('.roundnumber');
         
 
         function getComputerChoice() {
@@ -174,47 +206,61 @@
         } 
 
         function displayScores() {
-             document.getElementsByClassName('playerScore')[0].innerHTML = playerScore;
-             document.getElementsByClassName('computerScore')[0].innerHTML = computerScore;
+             document.querySelector('.playerScore').innerHTML = playerScore;
+             document.querySelector('.computerScore').innerHTML = computerScore;
+             document.querySelector('.roundnumber').innerHTML = roundNumber;
             
         }
 
+        paper.addEventListener('click', () => {
+            roundNumber++;
+            round.innerHTML = roundNumber;
+            a = 'paper';
+            playRound();
+        })
+
+        rock.addEventListener('click', () => {
+            roundNumber++;
+            round.innerHTML = roundNumber;
+            a = 'rock';
+            playRound();
+        });
+
+        scissors.addEventListener('click', () => {
+            roundNumber++;
+            round.innerHTML = roundNumber;
+            a = 'scissors';
+            playRound();
+        })
+
         function playRound() {
-            displayScores();
+            
             getComputerChoice();
-            a = prompt('Let\'s play Paper, Rock, Scissors! Enter what you choose!');
-            a = a.toLowerCase();
+            // a = prompt('Let\'s play Paper, Rock, Scissors! Enter what you choose!');
+            // a = a.toLowerCase();
             
             if (b == 1 && a == 'paper') {
-                alert('Nobody win. Paper doesn\'t beat paper.');
                 playerScore += 0; 
             } else if (b == 2 && a == 'paper') {
-                alert('You win! Paper wraps rock.');
                 ++playerScore;
             } else if (b == 3 && a == 'paper') {
-                alert('You lose! Scissors cut paper!');
                 ++computerScore;
             } else if (b == 1 && a == 'rock') {
-                alert('You lose! Paper wraps rock.');
                 ++computerScore;
             } else if (b == 2 && a == 'rock') {
-                alert('Nobody win. Rock doesn\'t beat rock.');
                 playerScore += 0;
             } else if (b == 3 && a == 'rock') {
-                alert('You win! Rock beats scissors.'); 
                 ++playerScore;
             }  else if (b == 1 && a == 'scissors') {
-                alert('You win! Scissors cut paper.');
                 ++playerScore;
             } else if (b == 2 && a == 'scissors') {
-                alert('You lose! Rock beats scissors.');
                 ++computerScore;
             } else if (b == 3 && a == 'scissors') {
-                alert('Nobody win. Scissors don\'t beat scissors.')
                 playerScore += 0;
-            } else {
-                alert('You\'ve made a mistake. Write your word once again correctly.');
-            }
+            };
+                
+
+            displayScores();
         }
 
         function game() {
@@ -231,8 +277,9 @@
         }
 
         function refresh() {
-            playerScore = '';
-            computerScore = '';
+            playerScore = 0;
+            computerScore = 0;
+            roundNumber = 0;
             displayScores();
         }
 
