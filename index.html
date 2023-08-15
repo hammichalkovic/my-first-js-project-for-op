@@ -181,7 +181,8 @@
         let paper = document.querySelector('.paper'),
             rock = document.querySelector('.rock'),
             scissors = document.querySelector('.scissors'),
-            round = document.querySelector('.roundnumber');
+            round = document.querySelector('.roundnumber'),
+            display = document.querySelector('.round');
         
 
         function getComputerChoice() {
@@ -217,6 +218,7 @@
             round.innerHTML = roundNumber;
             a = 'paper';
             playRound();
+
         })
 
         rock.addEventListener('click', () => {
@@ -224,6 +226,7 @@
             round.innerHTML = roundNumber;
             a = 'rock';
             playRound();
+
         });
 
         scissors.addEventListener('click', () => {
@@ -261,26 +264,29 @@
                 
 
             displayScores();
-        }
 
-        function game() {
+            if (computerScore == 5) {
+                display.innerHTML = 'COMPUTER WIN!';
+                display.style.fontSize = '50px';
+                display.style.color = 'red';
+                setTimeout(refresh, 3000);
+                
+            } else if (playerScore == 5) {
+                display.innerHTML = 'YOU WIN!';
+                display.style.fontSize = '50px';
+                display.style.color = 'red';
+                setTimeout(refresh, 3000);
+            };
+        };
 
-            if (playerScore > computerScore) {
-                alert('You win the game!');
-            } else if (playerScore < computerScore) {
-                alert('Computer win the game!');
-            } else if (playerScore == computerScore) {
-                alert('Nobody win the game!');
-            }
-
-            return displayScores();
-        }
-
+         
         function refresh() {
-            playerScore = 0;
-            computerScore = 0;
-            roundNumber = 0;
-            displayScores();
+            location.reload();
+            // playerScore = 0;
+            // computerScore = 0;
+            // roundNumber = 0;
+            // display.innerHTML = 'ROUNDS PLAYED:';
+            // displayScores();
         }
 
     </script>
